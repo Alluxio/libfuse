@@ -8,6 +8,7 @@
 
 #include "fuse_lowlevel.h"
 #include "fuse_misc.h"
+#include "fuse_kernel.h"
 #include "fuse_i.h"
 
 #include <stdio.h>
@@ -43,17 +44,6 @@ struct fuse_mt {
 	sem_t finish;
 	int exit;
 	int error;
-};
-
-struct fuse_in_header {
-        __u32   len;
-        __u32   opcode;
-        __u64   unique;
-        __u64   nodeid;
-        __u32   uid;
-        __u32   gid;
-        __u32   pid;
-        __u32   padding;
 };
 
 static void list_add_worker(struct fuse_worker *w, struct fuse_worker *next)
