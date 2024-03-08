@@ -22,8 +22,6 @@
 
 /* Environment var controlling the thread stack size */
 #define ENVNAME_THREAD_STACK "FUSE_THREAD_STACK"
-#define FUSE_FORGET 2
-#define FUSE_BATCH_FORGET 42
 
 struct fuse_worker {
 	struct fuse_worker *prev;
