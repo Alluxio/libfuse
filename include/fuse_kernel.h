@@ -89,8 +89,6 @@
 #define _LINUX_FUSE_H
 
 #include <sys/types.h>
-#define uint64_t uint64_t
-#define int64_t int64_t
 #define __u32 uint32_t
 #define __s32 int32_t
 #define __u16 uint16_t
