@@ -89,8 +89,8 @@
 #define _LINUX_FUSE_H
 
 #include <sys/types.h>
-#define __fuse_u64 uint64_t
-#define __fuse_s64 int64_t
+#define uint64_t uint64_t
+#define int64_t int64_t
 #define __u32 uint32_t
 #define __s32 int32_t
 #define __u16 uint16_t
@@ -128,12 +128,12 @@
    userspace works under 64bit kernels */
 
 struct fuse_attr {
-	__fuse_u64	ino;
-	__fuse_u64	size;
-	__fuse_u64	blocks;
-	__fuse_u64	atime;
-	__fuse_u64	mtime;
-	__fuse_u64	ctime;
+	uint64_t	ino;
+	uint64_t	size;
+	uint64_t	blocks;
+	uint64_t	atime;
+	uint64_t	mtime;
+	uint64_t	ctime;
 	__u32	atimensec;
 	__u32	mtimensec;
 	__u32	ctimensec;
@@ -147,11 +147,11 @@ struct fuse_attr {
 };
 
 struct fuse_kstatfs {
-	__fuse_u64	blocks;
-	__fuse_u64	bfree;
-	__fuse_u64	bavail;
-	__fuse_u64	files;
-	__fuse_u64	ffree;
+	uint64_t	blocks;
+	uint64_t	bfree;
+	uint64_t	bavail;
+	uint64_t	files;
+	uint64_t	ffree;
 	__u32	bsize;
 	__u32	namelen;
 	__u32	frsize;
@@ -160,8 +160,8 @@ struct fuse_kstatfs {
 };
 
 struct fuse_file_lock {
-	__fuse_u64	start;
-	__fuse_u64	end;
+	uint64_t	start;
+	uint64_t	end;
 	__u32	type;
 	__u32	pid; /* tgid */
 };
@@ -334,23 +334,23 @@ enum fuse_notify_code {
 #define FUSE_COMPAT_ENTRY_OUT_SIZE 120
 
 struct fuse_entry_out {
-	__fuse_u64	nodeid;		/* Inode ID */
-	__fuse_u64	generation;	/* Inode generation: nodeid:gen must
+	uint64_t	nodeid;		/* Inode ID */
+	uint64_t	generation;	/* Inode generation: nodeid:gen must
 				   be unique for the fs's lifetime */
-	__fuse_u64	entry_valid;	/* Cache timeout for the name */
-	__fuse_u64	attr_valid;	/* Cache timeout for the attributes */
+	uint64_t	entry_valid;	/* Cache timeout for the name */
+	uint64_t	attr_valid;	/* Cache timeout for the attributes */
 	__u32	entry_valid_nsec;
 	__u32	attr_valid_nsec;
 	struct fuse_attr attr;
 };
 
 struct fuse_forget_in {
-	__fuse_u64	nlookup;
+	uint64_t	nlookup;
 };
 
 struct fuse_forget_one {
-	__fuse_u64	nodeid;
-	__fuse_u64	nlookup;
+	uint64_t	nodeid;
+	uint64_t	nlookup;
 };
 
 struct fuse_batch_forget_in {
@@ -361,13 +361,13 @@ struct fuse_batch_forget_in {
 struct fuse_getattr_in {
 	__u32	getattr_flags;
 	__u32	dummy;
-	__fuse_u64	fh;
+	uint64_t	fh;
 };
 
 #define FUSE_COMPAT_ATTR_OUT_SIZE 96
 
 struct fuse_attr_out {
-	__fuse_u64	attr_valid;	/* Cache timeout for the attributes */
+	uint64_t	attr_valid;	/* Cache timeout for the attributes */
 	__u32	attr_valid_nsec;
 	__u32	dummy;
 	struct fuse_attr attr;
@@ -388,22 +388,22 @@ struct fuse_mkdir_in {
 };
 
 struct fuse_rename_in {
-	__fuse_u64	newdir;
+	uint64_t	newdir;
 };
 
 struct fuse_link_in {
-	__fuse_u64	oldnodeid;
+	uint64_t	oldnodeid;
 };
 
 struct fuse_setattr_in {
 	__u32	valid;
 	__u32	padding;
-	__fuse_u64	fh;
-	__fuse_u64	size;
-	__fuse_u64	lock_owner;
-	__fuse_u64	atime;
-	__fuse_u64	mtime;
-	__fuse_u64	unused2;
+	uint64_t	fh;
+	uint64_t	size;
+	uint64_t	lock_owner;
+	uint64_t	atime;
+	uint64_t	mtime;
+	uint64_t	unused2;
 	__u32	atimensec;
 	__u32	mtimensec;
 	__u32	unused3;
@@ -427,31 +427,31 @@ struct fuse_create_in {
 };
 
 struct fuse_open_out {
-	__fuse_u64	fh;
+	uint64_t	fh;
 	__u32	open_flags;
 	__u32	padding;
 };
 
 struct fuse_release_in {
-	__fuse_u64	fh;
+	uint64_t	fh;
 	__u32	flags;
 	__u32	release_flags;
-	__fuse_u64	lock_owner;
+	uint64_t	lock_owner;
 };
 
 struct fuse_flush_in {
-	__fuse_u64	fh;
+	uint64_t	fh;
 	__u32	unused;
 	__u32	padding;
-	__fuse_u64	lock_owner;
+	uint64_t	lock_owner;
 };
 
 struct fuse_read_in {
-	__fuse_u64	fh;
-	__fuse_u64	offset;
+	uint64_t	fh;
+	uint64_t	offset;
 	__u32	size;
 	__u32	read_flags;
-	__fuse_u64	lock_owner;
+	uint64_t	lock_owner;
 	__u32	flags;
 	__u32	padding;
 };
@@ -459,11 +459,11 @@ struct fuse_read_in {
 #define FUSE_COMPAT_WRITE_IN_SIZE 24
 
 struct fuse_write_in {
-	__fuse_u64	fh;
-	__fuse_u64	offset;
+	uint64_t	fh;
+	uint64_t	offset;
 	__u32	size;
 	__u32	write_flags;
-	__fuse_u64	lock_owner;
+	uint64_t	lock_owner;
 	__u32	flags;
 	__u32	padding;
 };
@@ -480,7 +480,7 @@ struct fuse_statfs_out {
 };
 
 struct fuse_fsync_in {
-	__fuse_u64	fh;
+	uint64_t	fh;
 	__u32	fsync_flags;
 	__u32	padding;
 };
@@ -501,8 +501,8 @@ struct fuse_getxattr_out {
 };
 
 struct fuse_lk_in {
-	__fuse_u64	fh;
-	__fuse_u64	owner;
+	uint64_t	fh;
+	uint64_t	owner;
 	struct fuse_file_lock lk;
 	__u32	lk_flags;
 	__u32	padding;
@@ -556,31 +556,31 @@ struct cuse_init_out {
 };
 
 struct fuse_interrupt_in {
-	__fuse_u64	unique;
+	uint64_t	unique;
 };
 
 struct fuse_bmap_in {
-	__fuse_u64	block;
+	uint64_t	block;
 	__u32	blocksize;
 	__u32	padding;
 };
 
 struct fuse_bmap_out {
-	__fuse_u64	block;
+	uint64_t	block;
 };
 
 struct fuse_ioctl_in {
-	__fuse_u64	fh;
+	uint64_t	fh;
 	__u32	flags;
 	__u32	cmd;
-	__fuse_u64	arg;
+	uint64_t	arg;
 	__u32	in_size;
 	__u32	out_size;
 };
 
 struct fuse_ioctl_iovec {
-	__fuse_u64	base;
-	__fuse_u64	len;
+	uint64_t	base;
+	uint64_t	len;
 };
 
 struct fuse_ioctl_out {
@@ -591,8 +591,8 @@ struct fuse_ioctl_out {
 };
 
 struct fuse_poll_in {
-	__fuse_u64	fh;
-	__fuse_u64	kh;
+	uint64_t	fh;
+	uint64_t	kh;
 	__u32	flags;
 	__u32   padding;
 };
@@ -603,13 +603,13 @@ struct fuse_poll_out {
 };
 
 struct fuse_notify_poll_wakeup_out {
-	__fuse_u64	kh;
+	uint64_t	kh;
 };
 
 struct fuse_fallocate_in {
-	__fuse_u64	fh;
-	__fuse_u64	offset;
-	__fuse_u64	length;
+	uint64_t	fh;
+	uint64_t	offset;
+	uint64_t	length;
 	__u32	mode;
 	__u32	padding;
 };
@@ -617,8 +617,8 @@ struct fuse_fallocate_in {
 struct fuse_in_header {
 	__u32	len;
 	__u32	opcode;
-	__fuse_u64	unique;
-	__fuse_u64	nodeid;
+	uint64_t	unique;
+	uint64_t	nodeid;
 	__u32	uid;
 	__u32	gid;
 	__u32	pid;
@@ -628,64 +628,64 @@ struct fuse_in_header {
 struct fuse_out_header {
 	__u32	len;
 	__s32	error;
-	__fuse_u64	unique;
+	uint64_t	unique;
 };
 
 struct fuse_dirent {
-	__fuse_u64	ino;
-	__fuse_u64	off;
+	uint64_t	ino;
+	uint64_t	off;
 	__u32	namelen;
 	__u32	type;
 	char name[];
 };
 
 #define FUSE_NAME_OFFSET offsetof(struct fuse_dirent, name)
-#define FUSE_DIRENT_ALIGN(x) (((x) + sizeof(__fuse_u64) - 1) & ~(sizeof(__fuse_u64) - 1))
+#define FUSE_DIRENT_ALIGN(x) (((x) + sizeof(uint64_t) - 1) & ~(sizeof(uint64_t) - 1))
 #define FUSE_DIRENT_SIZE(d) \
 	FUSE_DIRENT_ALIGN(FUSE_NAME_OFFSET + (d)->namelen)
 
 struct fuse_notify_inval_inode_out {
-	__fuse_u64	ino;
-	__fuse_s64	off;
-	__fuse_s64	len;
+	uint64_t	ino;
+	int64_t	off;
+	int64_t	len;
 };
 
 struct fuse_notify_inval_entry_out {
-	__fuse_u64	parent;
+	uint64_t	parent;
 	__u32	namelen;
 	__u32	padding;
 };
 
 struct fuse_notify_delete_out {
-	__fuse_u64	parent;
-	__fuse_u64	child;
+	uint64_t	parent;
+	uint64_t	child;
 	__u32	namelen;
 	__u32	padding;
 };
 
 struct fuse_notify_store_out {
-	__fuse_u64	nodeid;
-	__fuse_u64	offset;
+	uint64_t	nodeid;
+	uint64_t	offset;
 	__u32	size;
 	__u32	padding;
 };
 
 struct fuse_notify_retrieve_out {
-	__fuse_u64	notify_unique;
-	__fuse_u64	nodeid;
-	__fuse_u64	offset;
+	uint64_t	notify_unique;
+	uint64_t	nodeid;
+	uint64_t	offset;
 	__u32	size;
 	__u32	padding;
 };
 
 /* Matches the size of fuse_write_in */
 struct fuse_notify_retrieve_in {
-	__fuse_u64	dummy1;
-	__fuse_u64	offset;
+	uint64_t	dummy1;
+	uint64_t	offset;
 	__u32	size;
 	__u32	dummy2;
-	__fuse_u64	dummy3;
-	__fuse_u64	dummy4;
+	uint64_t	dummy3;
+	uint64_t	dummy4;
 };
 
 #endif /* _LINUX_FUSE_H */
