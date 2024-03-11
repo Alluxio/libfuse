@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <fcntl.h>
 #include <dirent.h>
 #include <pthread.h>
@@ -123,7 +124,7 @@ static int receive_message(int sock, void *buf, size_t buflen, int *fdp,
 	return res;
 }
 
-static int closefrom(int minfd)
+void closefrom(int minfd)
 {
 	DIR *dir = opendir("/proc/self/fd");
 	if (dir) {
@@ -138,7 +139,6 @@ static int closefrom(int minfd)
 		}
 		closedir(dir);
 	}
-	return 0;
 }
 
 static void send_reply(int cfd, struct message *msg)
