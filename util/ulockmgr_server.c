@@ -22,6 +22,10 @@
 #include <sys/socket.h>
 #include <sys/wait.h>
 
+#ifdef HAVE_CONFIG_H
+	#include "config.h"
+#endif
+
 struct message {
 	unsigned intr : 1;
 	unsigned nofd : 1;
@@ -92,7 +96,7 @@ static int receive_message(int sock, void *buf, size_t buflen, int *fdp,
 
 	cmsg = CMSG_FIRSTHDR(&msg);
 	if (cmsg) {
-		if (!cmsg->cmsg_type == SCM_RIGHTS) {
+		if (cmsg->cmsg_type != SCM_RIGHTS) {
 			fprintf(stderr,
 				"ulockmgr_server: unknown control message %d\n",
 				cmsg->cmsg_type);
@@ -124,6 +128,7 @@ static int receive_message(int sock, void *buf, size_t buflen, int *fdp,
 	return res;
 }
 
+#if !defined(HAVE_CLOSEFROM)
 static int closefrom(int minfd)
 {
 	DIR *dir = opendir("/proc/self/fd");
@@ -141,6 +146,7 @@ static int closefrom(int minfd)
 	}
 	return 0;
 }
+#endif
 
 static void send_reply(int cfd, struct message *msg)
 {
